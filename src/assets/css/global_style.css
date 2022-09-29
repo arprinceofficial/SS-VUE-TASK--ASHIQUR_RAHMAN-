@@ -1,0 +1,42 @@
+:root {
+    --blue: #026CD1;
+    --white: #ffffff;
+    --ice-white: #FBFCFE;
+    --bluish-white: #E2EDFA;
+    --border-color: #E2EDFA;
+    --red: #DF2A43;
+    --redish-white: #F5BEC6;
+    --yellow: #FCC428;
+    --yellowish-white: #FFF7E3;
+    --green: #28A411;
+    --greenish-white: #d2fccc;
+    --gray: #526471;
+    --text-red: #DF2A43;
+    --text-black: #36454F;
+    --text-label: #36454F;
+    --font22: 22px;
+    --font20: 20px;
+    --font18: 18px;
+    --font16: 16px;
+    --font14: 14px;
+    --font12: 12px;
+    --font10: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
