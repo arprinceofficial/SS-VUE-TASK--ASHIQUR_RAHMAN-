@@ -24,6 +24,7 @@ export default {
             email: '',
             number: null,
             error: false,
+            storeAdmin:[],
         }
     },
     methods: {
@@ -32,8 +33,25 @@ export default {
                 this.error = true;
             }
             else {
-                alert("Create Successful")
+                // alert("Create Successful")
+                let result = {
+                    name: this.name,
+                    email: this.email,
+                    number: this.number
+                };
+
+                // Store data in Vuex
+                this.$store.dispatch("storeAdminInfo", result);
+
+                // Store data in Local for checking in console
+                this.storeAdmin.push({
+                    id: this.storeAdmin.length + 1,
+                    name: this.name,
+                    email: this.email,
+                    number: this.number
+                })
             }
+            console.log(this.storeAdmin)
         }
     },
 }

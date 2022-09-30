@@ -45,11 +45,11 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr v-for="index in 5" :key="index">
-                        <td>{{index}}</td>
-                        <td>Ashiqur Rahman</td>
-                        <td>as@gmail.com</td>
-                        <td>01977879681</td>
+                    <tr v-for="(data, index) in listAdmin" :key="index">
+                        <td>{{data.id}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.email}}</td>
+                        <td>{{data.number}}</td>
                         <td>
                             <div class="button">
                                 <button class="btn save">Edit</button>
@@ -77,7 +77,15 @@ export default {
             type: Object,
             default: () =>{}
         }
-    }
+    },
+    data() {
+        return {
+            listAdmin: [],
+        }
+    },
+    mounted() {
+        this.listAdmin = this.$store.state.AdminInfo;
+    },
 }
 </script>
 
