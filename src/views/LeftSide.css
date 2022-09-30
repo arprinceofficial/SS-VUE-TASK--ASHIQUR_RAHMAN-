@@ -28,7 +28,7 @@
 }
 
 .main-body .left-side .bottom {
-    height: calc(100vh - 20px);
+    height: calc(100vh - 0px);
     min-height: 300px;
     min-width: 300px;
     overflow-y: auto;

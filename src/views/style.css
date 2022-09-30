@@ -1,5 +1,9 @@
 /* Start table CSS */
 
+.main-body .right-side .content h1 {
+    font-size: var(--font22);
+}
+
 .main-body .right-side .content .table-body {
     display: flex;
     flex-direction: column;
