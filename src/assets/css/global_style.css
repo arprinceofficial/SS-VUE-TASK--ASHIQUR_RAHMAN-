@@ -1,10 +1,12 @@
 :root {
     --blue: #026CD1;
+    --blue-hover: #005baf;
     --white: #ffffff;
     --ice-white: #FBFCFE;
     --bluish-white: #E2EDFA;
     --border-color: #E2EDFA;
     --red: #DF2A43;
+    --red-hover: #c6001a;
     --redish-white: #F5BEC6;
     --yellow: #FCC428;
     --yellowish-white: #FFF7E3;
@@ -39,4 +41,75 @@ body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.main-body {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* ----------- Start Right Side ----------- */
+
+.main-body .right-side {
+    background-color: var(--ice-white);
+    width: 100%;
+}
+
+.main-body .right-side .content {
+    padding: 10px 20px;
+    height: calc(100% - 20px);
+}
+
+
+/*----------- End Right Side -----------*/
+
+
+/*----------- Start Button CSS -----------*/
+
+.button .btn {
+    padding: 10px 20px;
+    width: 100px;
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: var(--font16);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button .btn.cancel {
+    background-color: var(--red);
+}
+
+.button .btn.cancel:hover {
+    background-color: var(--red-hover);
+    color: var(--white);
+    transition: 0.6s;
+}
+
+.button .btn.save {
+    background-color: var(--blue);
+    margin-right: 20px;
+}
+
+.button .btn.save:hover {
+    background-color: var(--blue-hover);
+    color: var(--white);
+    transition: 0.6s;
+}
+
+
+/*----------- End Button CSS -----------*/
+
+::-webkit-scrollbar {
+    width: 3px;
+    z-index: -1;
+    height: calc(100% - 20px);
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: var(--blue);
 }
