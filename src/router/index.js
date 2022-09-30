@@ -5,9 +5,9 @@ const router = createRouter({
     history,
     routes: [{
             path: '/',
-            name: 'DashBoard',
+            name: 'HomePage',
             component: () =>
-                import ( /* webpackChunkName: "DashBoard" */ '@/views/DashBoard.vue'),
+                import ( /* webpackChunkName: "HomePage" */ '@/views/HomePage.vue'),
         },
 
     ],
