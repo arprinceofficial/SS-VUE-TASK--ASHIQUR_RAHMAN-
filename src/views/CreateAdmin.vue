@@ -5,8 +5,8 @@
                 <h1>Create Admin</h1>
                 <input type="text" placeholder="Enter name" v-model="name" :class="{ 'error':  !name && error }" />
                 <input type="email" placeholder="Enter Email" v-model="email" :class="{ 'error':  !email && error }" />
-                <input type="number" placeholder="Enter number" v-model="number" :class="{ 'error':  !number && error }" />
-                
+                <input type="tel" pattern="[0-9]{11}" placeholder="Enter number" v-model="number" :class="{ 'error':  !number && error }" />
+                <small>Ex: 01977879681</small>
                 <div class="button">
                     <button type="submit">Create</button>
                     <button class="btn cancel" @click="$emit('cancel-button','DashBoard')">Cancel</button>
@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         createHandler() {
-            if (!this.name == null || this.name == "" || !this.email == null || this.email == "" || !this.number == null || this.number == "") {
+            if (!this.name == null || this.name == "" || !this.email == null || this.email == "" || this.number == null || this.number == "") {
                 this.error = true;
             }
             else {
