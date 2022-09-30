@@ -33,7 +33,15 @@ export default {
                 this.error = true;
             }
             else {
-                alert("Create Successful")
+                // alert("Create Successful")
+                let result = {
+                    name: this.name,
+                    email: this.email,
+                    number: this.number
+                };
+
+                // Store data in Vuex
+                this.$store.dispatch("storeEmployeeInfo", result);
             }
         }
     },
