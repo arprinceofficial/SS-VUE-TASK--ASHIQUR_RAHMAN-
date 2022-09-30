@@ -45,7 +45,7 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr v-for="index in 30" :key="index">
+                    <tr v-for="index in 5" :key="index">
                         <td>{{index}}</td>
                         <td>Ashiqur Rahman</td>
                         <td>as@gmail.com</td>
