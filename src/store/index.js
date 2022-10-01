@@ -22,6 +22,14 @@ const store = createStore({
                 number: val.number,
             });
         },
+        DELETE_ADMIN(state, data) {
+            var index = state.AdminInfo.findIndex((item) => item.id == data.id);
+            state.AdminInfo.splice(index, 1);
+        },
+        DELETE_EMPLOYEE(state, data) {
+            var index = state.EmployeeInfo.findIndex((item) => item.id == data.id);
+            state.EmployeeInfo.splice(index, 1);
+        },
     },
     actions: {
         storeAdminInfo({ commit }, payload) {

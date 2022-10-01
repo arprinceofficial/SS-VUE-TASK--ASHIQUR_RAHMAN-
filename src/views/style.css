@@ -4,6 +4,18 @@
     font-size: var(--font22);
 }
 
+.main-body .right-side .content .table-body input {
+    border: 1px solid var(--text-label);
+    border-radius: 2px;
+    background-color: var(--white);
+}
+
+.main-body .right-side .content .table-body input:focus {
+    border: 2px solid var(--blue) !important;
+    box-shadow: none;
+    outline: none;
+}
+
 .main-body .right-side .content .table-body {
     display: flex;
     flex-direction: column;

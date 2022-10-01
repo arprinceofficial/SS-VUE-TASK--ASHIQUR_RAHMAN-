@@ -14,13 +14,27 @@
                 <tbody>
                     <tr v-for="(data, index) in listEmployee" :key="index">
                         <td>{{data.id}}</td>
-                        <td>{{data.name}}</td>
-                        <td>{{data.email}}</td>
-                        <td>{{data.number}}</td>
+                        <td>
+                            <input v-if="isEditEmp == index" type="text" v-model="data.name" />
+                            <span v-else>{{data.name}}</span>
+                        </td>
+                        <td>
+                            <input v-if="isEditEmp == index" type="text" v-model="data.email" />
+                            <span v-else>{{data.email}}</span>
+                        </td>
+                        <td>
+                            <input v-if="isEditEmp == index" type="text" v-model="data.number" />
+                            <span v-else>{{data.number}}</span>
+                        </td>
                         <td>
                             <div class="button">
-                                <button class="btn save">Edit</button>
-                                <button class="btn cancel">Delete</button>
+                                <button class="btn save"
+                                    @click="isEditEmp = isEditEmp == index ? null :index"
+                                >Edit</button>
+                                <button class="btn save">Update</button>
+                                <button class="btn cancel"
+                                    @click="removeEmployee(data)"
+                                >Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -47,13 +61,27 @@
                 <tbody>
                     <tr v-for="(data, index) in listAdmin" :key="index">
                         <td>{{data.id}}</td>
-                        <td>{{data.name}}</td>
-                        <td>{{data.email}}</td>
-                        <td>{{data.number}}</td>
+                        <td>
+                            <input v-if="isEditAdm == index" type="text" v-model="data.name" />
+                            <span v-else>{{data.name}}</span>
+                        </td>
+                        <td>
+                            <input v-if="isEditAdm == index" type="text" v-model="data.email" />
+                            <span v-else>{{data.email}}</span>
+                        </td>
+                        <td>
+                            <input v-if="isEditAdm == index" type="text" v-model="data.number" />
+                            <span v-else>{{data.number}}</span>
+                        </td>
                         <td>
                             <div class="button">
-                                <button class="btn save">Edit</button>
-                                <button class="btn cancel">Delete</button>
+                                <button class="btn save"
+                                    @click="isEditAdm = isEditAdm == index ? null :index"
+                                >Edit</button>
+                                <button class="btn save">Update</button>
+                                <button class="btn cancel"
+                                    @click="removeAdmin(data, index)"
+                                >Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -82,12 +110,29 @@ export default {
         return {
             listAdmin: [],
             listEmployee: [],
+            isEditAdm: null,
+            isEditEmp: null,
         }
     },
     mounted() {
         this.listAdmin = this.$store.state.AdminInfo;
         this.listEmployee = this.$store.state.EmployeeInfo;
     },
+    methods: {
+        removeAdmin(data) {
+            // this.listAdmin.splice(index, 1);
+            this.$store.commit('DELETE_ADMIN', data)
+        },
+        removeEmployee(data) {
+            this.$store.commit('DELETE_EMPLOYEE', data)
+        }
+    },
+    watch: {
+        RECEIVE_DATA() { 
+            this.isEditAdm = null;
+            this.isEditEmp = null;
+        }
+    }
 }
 </script>
 
