@@ -31,7 +31,9 @@
                                 <button class="btn save"
                                     @click="isEditEmp = isEditEmp == index ? null :index"
                                 >Edit</button>
-                                <button class="btn save">Update</button>
+                                <button class="btn save"
+                                    @click="updateEmployee(data)"
+                                >Update</button>
                                 <button class="btn cancel"
                                     @click="removeEmployee(data)"
                                 >Delete</button>
@@ -78,7 +80,9 @@
                                 <button class="btn save"
                                     @click="isEditAdm = isEditAdm == index ? null :index"
                                 >Edit</button>
-                                <button class="btn save">Update</button>
+                                <button class="btn save"
+                                    @click="updateAdmin(data)"
+                                >Update</button>
                                 <button class="btn cancel"
                                     @click="removeAdmin(data, index)"
                                 >Delete</button>
@@ -123,8 +127,18 @@ export default {
             // this.listAdmin.splice(index, 1);
             this.$store.commit('DELETE_ADMIN', data)
         },
+        updateAdmin(data) {
+            console.log(data);
+            this.$store.commit('UPDATE_ADMIN', data);
+            this.isEditAdm = null;
+        },
         removeEmployee(data) {
             this.$store.commit('DELETE_EMPLOYEE', data)
+        },
+        updateEmployee(data) {
+            console.log(data);
+            this.$store.commit('UPDATE_EMPLOYEE', data);
+            this.isEditEmp = null;
         }
     },
     watch: {
