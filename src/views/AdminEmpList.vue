@@ -16,15 +16,16 @@
                     <tr v-for="(data, index) in listEmployee" :key="index">
                         <td>{{data.id}}</td>
                         <td>
-                            <input v-if="isEditEmp == index" type="text" v-model="data.name" />
+                            <input v-if="isEditEmp == index" type="text" v-model="data.name" :class="{ 'error':  !data.name && error }" />
                             <span v-else>{{data.name}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditEmp == index" type="text" v-model="data.email" />
+                            <input v-if="isEditEmp == index" type="text" v-model="data.email" :class="{ 'error':  !data.email && error }" />
                             <span v-else>{{data.email}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditEmp == index" type="text" v-model="data.number" />
+                            <input v-if="isEditEmp == index" type="tel" pattern="[0-9]{11}" placeholder="Enter number" v-model="data.number"
+                                :class="{ 'error':  !data.number && error }" />
                             <span v-else>{{data.number}}</span>
                         </td>
                         <td>
@@ -45,7 +46,7 @@
             </table>
         </div>
         <div class="button">
-            <button class="btn save">Save</button>
+            <!-- <button class="btn save">Save</button> -->
             <button class="btn cancel" @click="$emit('cancel-button','DashBoard')">Cancel</button>
         </div>
     </div>
@@ -67,15 +68,15 @@
                     <tr v-for="(data, index) in listAdmin" :key="index">
                         <td>{{data.id}}</td>
                         <td>
-                            <input v-if="isEditAdm == index" type="text" v-model="data.name" />
+                            <input v-if="isEditAdm == index" type="text" v-model="data.name" :class="{ 'error':  !data.name && error }"/>
                             <span v-else>{{data.name}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditAdm == index" type="text" v-model="data.email" />
+                            <input v-if="isEditAdm == index" type="text" v-model="data.email" :class="{ 'error':  !data.email && error }"/>
                             <span v-else>{{data.email}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditAdm == index" type="text" v-model="data.number" />
+                            <input v-if="isEditAdm == index" type="tel" pattern="[0-9]{11}" placeholder="Enter number" v-model="data.number" :class="{ 'error':  !data.number && error }"/>
                             <span v-else>{{data.number}}</span>
                         </td>
                         <td>
@@ -96,7 +97,7 @@
             </table>
         </div>
         <div class="button">
-            <button class="btn save">Save</button>
+            <!-- <button class="btn save">Save</button> -->
             <button class="btn cancel" @click="$emit('cancel-button','DashBoard')">Cancel</button>
         </div>
     </div>
@@ -104,7 +105,9 @@
 
     <!--Start Dialog Modal -->
     <div class="dialog-modal text-center">
-        <v-dialog v-model="dialog">
+        <v-dialog v-model="dialog"
+        persistent
+        >
             <v-card>
                 <v-card-text>
                     Are you sure want to delete this user?
@@ -138,6 +141,7 @@ export default {
             isEditEmp: null,
             dialog: false,
             deleteUser: [],
+            error: false,
         }
     },
     mounted() {
@@ -146,14 +150,28 @@ export default {
     },
     methods: {
         updateAdmin(data) {
-            console.log(data);
-            this.$store.commit('UPDATE_ADMIN', data);
-            this.isEditAdm = null;
+            if (data.name && data.email && data.number) {
+                this.$store.commit('UPDATE_ADMIN', data);
+                this.isEditAdm = null;
+                this.error = false;
+            } else {
+                this.error = true;
+            }
+            // console.log(data);
+            // this.$store.commit('UPDATE_ADMIN', data);
+            // this.isEditAdm = null;
         },
         updateEmployee(data) {
-            console.log(data);
-            this.$store.commit('UPDATE_EMPLOYEE', data);
-            this.isEditEmp = null;
+            if(data.name && data.email && data.number) {
+                this.$store.commit('UPDATE_EMPLOYEE', data);
+                this.isEditEmp = null;
+                console.log(data);
+            } else {
+                this.error = true;
+            }
+            // console.log(data);
+            // this.$store.commit('UPDATE_EMPLOYEE', data);
+            // this.isEditEmp = null;
         },
         openModal(data, user) {
             this.dialog = true;
