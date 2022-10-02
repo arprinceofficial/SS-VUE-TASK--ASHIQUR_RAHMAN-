@@ -4,6 +4,18 @@
     font-size: var(--font22);
 }
 
+.main-body .right-side .content .table-body input {
+    border: 1px solid var(--text-label);
+    border-radius: 2px;
+    background-color: var(--white);
+}
+
+.main-body .right-side .content .table-body input:focus {
+    border: 2px solid var(--blue) !important;
+    box-shadow: none;
+    outline: none;
+}
+
 .main-body .right-side .content .table-body {
     display: flex;
     flex-direction: column;
@@ -76,3 +88,36 @@
 
 
 /* End table CSS */
+
+
+/* Start Dialog Modal CSS */
+
+.v-dialog {
+    width: 30% !important;
+    max-width: 30% !important;
+    display: flex;
+    justify-content: center;
+}
+
+.v-card {
+    height: 160px !important;
+    padding: 20px !important;
+}
+
+.v-btn--block {
+    width: 30% !important;
+    min-width: unset !important;
+}
+
+.v-btn--block.cancel {
+    background-color: var(--red) !important;
+    color: var(--white) !important;
+}
+
+.v-btn--block.save {
+    background-color: var(--green) !important;
+    color: var(--white) !important;
+}
+
+
+/* Edit Dialog Modal CSS */
