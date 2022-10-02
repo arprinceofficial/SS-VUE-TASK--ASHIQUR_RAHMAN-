@@ -1,5 +1,6 @@
 <template>
 <div class="content">
+    <!-- Start Employee Section -->
     <div v-if="RECEIVE_DATA.data == 'emp'">
         <h1>Employee List</h1>
         <div class="table-body">
@@ -35,7 +36,7 @@
                                     @click="updateEmployee(data)"
                                 >Update</button>
                                 <button class="btn cancel"
-                                    @click="removeEmployee(data)"
+                                    @click="openModal(data, user=RECEIVE_DATA.data)"
                                 >Delete</button>
                             </div>
                         </td>
@@ -48,7 +49,9 @@
             <button class="btn cancel" @click="$emit('cancel-button','DashBoard')">Cancel</button>
         </div>
     </div>
+    <!-- End Employee Section -->
 
+    <!-- Start Admin Section -->
     <div v-if="RECEIVE_DATA.data == 'adm'">
         <h1>Admin List</h1>
         <div class="table-body">
@@ -84,7 +87,7 @@
                                     @click="updateAdmin(data)"
                                 >Update</button>
                                 <button class="btn cancel"
-                                    @click="removeAdmin(data, index)"
+                                    @click="openModal(data, user=RECEIVE_DATA.data)"
                                 >Delete</button>
                             </div>
                         </td>
@@ -97,6 +100,23 @@
             <button class="btn cancel" @click="$emit('cancel-button','DashBoard')">Cancel</button>
         </div>
     </div>
+    <!-- End Admin Section -->
+
+    <!--Start Dialog Modal -->
+    <div class="dialog-modal text-center">
+        <v-dialog v-model="dialog">
+            <v-card>
+                <v-card-text>
+                    Are you sure want to delete this user?
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="red cancel" block @click="(dialog = false, deleteUser = [])">Close</v-btn>
+                    <v-btn color="green save" block @click="removeUser()">Ok</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </div>
+    <!--End Dialog Modal -->
 </div>
 </template>
 
@@ -116,6 +136,8 @@ export default {
             listEmployee: [],
             isEditAdm: null,
             isEditEmp: null,
+            dialog: false,
+            deleteUser: [],
         }
     },
     mounted() {
@@ -123,23 +145,32 @@ export default {
         this.listEmployee = this.$store.state.EmployeeInfo;
     },
     methods: {
-        removeAdmin(data) {
-            // this.listAdmin.splice(index, 1);
-            this.$store.commit('DELETE_ADMIN', data)
-        },
         updateAdmin(data) {
             console.log(data);
             this.$store.commit('UPDATE_ADMIN', data);
             this.isEditAdm = null;
         },
-        removeEmployee(data) {
-            this.$store.commit('DELETE_EMPLOYEE', data)
-        },
         updateEmployee(data) {
             console.log(data);
             this.$store.commit('UPDATE_EMPLOYEE', data);
             this.isEditEmp = null;
-        }
+        },
+        openModal(data, user) {
+            this.dialog = true;
+            this.deleteUser = {data, user};
+            console.log(this.deleteUser);
+        },
+        removeUser() {
+            if(this.deleteUser.user == 'adm') {
+                this.$store.commit('DELETE_ADMIN', this.deleteUser.data);
+            }
+            else if(this.deleteUser.user == 'emp') {
+                this.$store.commit('DELETE_EMPLOYEE', this.deleteUser.data);
+            }
+            this.dialog = false;
+            this.deleteUser = [];
+        },
+        
     },
     watch: {
         RECEIVE_DATA() { 
