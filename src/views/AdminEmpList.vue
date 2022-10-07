@@ -24,8 +24,15 @@
                             <span v-else>{{data.email}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditEmp == index" type="tel" pattern="[0-9]{11}" placeholder="Enter number" v-model="data.number"
-                                :class="{ 'error':  !data.number && error }" />
+                            <div v-if="isEditEmp == index" style="display:flex; flex-direction:column; color:red">
+                                <input placeholder="Enter number" v-model.trim="data.number"
+                                    :class="{ 'error':  !data.number && error && !isValidPhoneNo(data.number) }" />
+                            
+                                <!-- Validation Message -->
+                                <small class="form-text text-danger" v-if="error && !isValidPhoneNo(data.number)">
+                                    {{ !data.number ? 'Required' : 'Invalid format' }}
+                                </small>
+                            </div>
                             <span v-else>{{data.number}}</span>
                         </td>
                         <td>
@@ -76,7 +83,15 @@
                             <span v-else>{{data.email}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditAdm == index" type="tel" pattern="[0-9]{11}" placeholder="Enter number" v-model="data.number" :class="{ 'error':  !data.number && error }"/>
+                            <div v-if="isEditAdm == index" style="display:flex; flex-direction:column; color:red">
+                                <input placeholder="Enter number" v-model.trim="data.number"
+                                    :class="{ 'error':  !data.number && error && !isValidPhoneNo(data.number) }" />
+                            
+                                <!-- Validation Message -->
+                                <small class="form-text text-danger" v-if="error && !isValidPhoneNo(data.number)">
+                                    {{ !data.number ? 'Required' : 'Invalid format' }}
+                                </small>
+                            </div>
                             <span v-else>{{data.number}}</span>
                         </td>
                         <td>
@@ -150,7 +165,7 @@ export default {
     },
     methods: {
         updateAdmin(data) {
-            if (data.name && data.email && data.number) {
+            if (data.name && data.email && data.number && this.isValidPhoneNo(data.number)) {
                 this.$store.commit('UPDATE_ADMIN', data);
                 this.isEditAdm = null;
                 this.error = false;
@@ -162,7 +177,7 @@ export default {
             // this.isEditAdm = null;
         },
         updateEmployee(data) {
-            if(data.name && data.email && data.number) {
+            if(data.name && data.email && data.number && this.isValidPhoneNo(data.number)) {
                 this.$store.commit('UPDATE_EMPLOYEE', data);
                 this.isEditEmp = null;
                 console.log(data);
@@ -188,7 +203,10 @@ export default {
             this.dialog = false;
             this.deleteUser = [];
         },
-        
+        isValidPhoneNo(phoneNo) {
+            const regExp = /(^\d{11}$)|(^\+?\d{5}-?\d{8}$)/g
+            return regExp.test(phoneNo);
+        },
     },
     watch: {
         RECEIVE_DATA() { 

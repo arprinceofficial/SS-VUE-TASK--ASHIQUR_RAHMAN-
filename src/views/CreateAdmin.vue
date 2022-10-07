@@ -5,7 +5,15 @@
                 <h1>Create Admin</h1>
                 <input type="text" placeholder="Enter name" v-model="name" :class="{ 'error':  !name && error }" />
                 <input type="email" placeholder="Enter Email" v-model="email" :class="{ 'error':  !email && error }" />
-                <input type="tel" pattern="[0-9]{11}" placeholder="Enter number" v-model="number" :class="{ 'error':  !number && error }" />
+                <div style="display:flex; flex-direction:column; color:red">
+                    <input placeholder="Enter number" v-model.trim="number"
+                        :class="{ 'error':  !number && error && !isValidPhoneNo(number) }" />
+                
+                    <!-- Validation Message -->
+                    <small class="form-text text-danger" v-if="error && !isValidPhoneNo(number)">
+                        {{ !number ? 'Required' : 'Invalid format' }}
+                    </small>
+                </div>
                 <small>Ex: 01977879681</small>
                 <div class="button">
                     <button type="submit">Create</button>
@@ -29,7 +37,7 @@ export default {
     },
     methods: {
         createHandler() {
-            if (!this.name == null || this.name == "" || !this.email == null || this.email == "" || this.number == null || this.number == "") {
+            if (!this.name == null || this.name == "" || !this.email == null || this.email == "" || this.number == null || this.number == "" || !this.isValidPhoneNo(this.number)) {
                 this.error = true;
             }
             else {
@@ -52,7 +60,11 @@ export default {
                 })
             }
             console.log(this.storeAdmin)
-        }
+        },
+        isValidPhoneNo(phoneNo) {
+            const regExp = /(^\d{11}$)|(^\+?\d{5}-?\d{8}$)/g
+            return regExp.test(phoneNo);
+        },
     },
 }
 </script>
