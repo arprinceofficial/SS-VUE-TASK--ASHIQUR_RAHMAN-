@@ -20,7 +20,15 @@
                             <span v-else>{{data.name}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditEmp == index" type="text" v-model="data.email" :class="{ 'error':  !data.email && error }" />
+                            <div v-if="isEditEmp == index" style="display:flex; flex-direction:column; color:red">
+                                <input placeholder="Enter Email" v-model.trim="data.email"
+                                    :class="{ 'error':  !data.email && error && !isValidEmail(data.email) }" />
+                            
+                                <!-- Validation Message -->
+                                <small class="form-text text-danger" v-if="error && !isValidEmail(data.email)">
+                                    {{ !data.email ? 'Required' : 'Invalid Email Address' }}
+                                </small>
+                            </div>
                             <span v-else>{{data.email}}</span>
                         </td>
                         <td>
@@ -79,7 +87,15 @@
                             <span v-else>{{data.name}}</span>
                         </td>
                         <td>
-                            <input v-if="isEditAdm == index" type="text" v-model="data.email" :class="{ 'error':  !data.email && error }"/>
+                            <div v-if="isEditAdm == index" style="display:flex; flex-direction:column; color:red">
+                                <input placeholder="Enter Email" v-model.trim="data.email"
+                                    :class="{ 'error':  !data.email && error && !isValidEmail(data.email) }" />
+                            
+                                <!-- Validation Message -->
+                                <small class="form-text text-danger" v-if="error && !isValidEmail(data.email)">
+                                    {{ !data.email ? 'Required' : 'Invalid Email Address' }}
+                                </small>
+                            </div>
                             <span v-else>{{data.email}}</span>
                         </td>
                         <td>
@@ -165,28 +181,22 @@ export default {
     },
     methods: {
         updateAdmin(data) {
-            if (data.name && data.email && data.number && this.isValidPhoneNo(data.number)) {
+            if (data.name && this.isValidEmail(data.email) && this.isValidPhoneNo(data.number)) {
                 this.$store.commit('UPDATE_ADMIN', data);
                 this.isEditAdm = null;
                 this.error = false;
             } else {
                 this.error = true;
             }
-            // console.log(data);
-            // this.$store.commit('UPDATE_ADMIN', data);
-            // this.isEditAdm = null;
         },
         updateEmployee(data) {
-            if(data.name && data.email && data.number && this.isValidPhoneNo(data.number)) {
+            if(data.name && this.isValidEmail(data.email) && this.isValidPhoneNo(data.number)) {
                 this.$store.commit('UPDATE_EMPLOYEE', data);
                 this.isEditEmp = null;
                 console.log(data);
             } else {
                 this.error = true;
             }
-            // console.log(data);
-            // this.$store.commit('UPDATE_EMPLOYEE', data);
-            // this.isEditEmp = null;
         },
         openModal(data, user) {
             this.dialog = true;
@@ -207,6 +217,10 @@ export default {
             const regExp = /(^\d{11}$)|(^\+?\d{5}-?\d{8}$)/g
             return regExp.test(phoneNo);
         },
+        isValidEmail(email) {
+            const regExp = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return regExp.test(email);
+        }
     },
     watch: {
         RECEIVE_DATA() { 
